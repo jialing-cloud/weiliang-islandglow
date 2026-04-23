@@ -17,18 +17,22 @@ const LIFE_STAGES = [
   { zh: "死亡", en: "Death" },
 ];
 
-// 改編自 Maslach Burnout Inventory (MBI) — 結構化以利後台維度分析
+// 改編自 Maslach Burnout Inventory–General Survey（MBI-GS）
+// 出處：Maslach, C., Jackson, S. E., & Leiter, M. P. (1996).
+// Maslach Burnout Inventory Manual (3rd ed.). Mountain View, CA: CPP.
+// 本量表依 MBI-GS 三大維度（耗竭、冷感、效能）進行中文適應，
+// 並加入情緒壓抑與存在叩問兩個補充面向。
 const AWARENESS_ITEMS = [
-  { id: "ex1", text: "我常常感到精疲力竭，就算睡了一整夜也沒辦法真正恢復。", cat: "exhaustion", catLabel: "心力耗盡" },
-  { id: "ex2", text: "我覺得自己的能量，正在被工作或生活一點一點地榨乾。",   cat: "exhaustion", catLabel: "心力耗盡" },
-  { id: "ex3", text: "我知道自己需要休息，但就是沒辦法讓自己真正放鬆下來。", cat: "exhaustion", catLabel: "心力耗盡" },
-  { id: "cy1", text: "我開始對以前在乎的事情、或在乎的人，感到麻木或冷漠。", cat: "cynicism",   catLabel: "冷感疏離" },
-  { id: "cy2", text: "我懷疑自己每天做的事，是否真的有任何意義。",           cat: "cynicism",   catLabel: "冷感疏離" },
-  { id: "ef1", text: "完成一件事之後，我很難感受到真正的成就感或喜悅。",     cat: "efficacy",   catLabel: "動力流失" },
-  { id: "ef2", text: "我越來越難感受到純粹的快樂，對很多事提不起勁。",       cat: "efficacy",   catLabel: "動力流失" },
-  { id: "mk1", text: "我強迫自己維持表面的正常，但內心已經快撐不下去了。",   cat: "mask",       catLabel: "情緒壓抑" },
-  { id: "mk2", text: "我害怕讓別人看到我脆弱，或看到「不夠好」的那一面。",   cat: "mask",       catLabel: "情緒壓抑" },
-  { id: "me1", text: "深夜裡，我有時候會問自己：「這真的是我想要的人生嗎？」", cat: "meaning",  catLabel: "迷失方向" },
+  { id: "ex1", text: "我在工作或日常生活中，感到情感上的耗竭。",           cat: "exhaustion", catLabel: "心力耗盡" },
+  { id: "ex2", text: "在一天結束時，我感到精力已經用盡。",                  cat: "exhaustion", catLabel: "心力耗盡" },
+  { id: "ex3", text: "早上起床後，我感到疲憊，不想面對新的一天。",          cat: "exhaustion", catLabel: "心力耗盡" },
+  { id: "cy1", text: "我對曾經熱衷的事情，興趣越來越淡。",                  cat: "cynicism",   catLabel: "冷感疏離" },
+  { id: "cy2", text: "我開始懷疑自己所做的事情是否真的有意義。",            cat: "cynicism",   catLabel: "冷感疏離" },
+  { id: "ef1", text: "我很難從完成的事情中，感受到真正的成就感。",          cat: "efficacy",   catLabel: "動力流失" },
+  { id: "ef2", text: "我覺得自己越來越難有效地應對生活中的挑戰。",          cat: "efficacy",   catLabel: "動力流失" },
+  { id: "mk1", text: "我強迫自己對外表現得一切正常，即使內心並非如此。",    cat: "mask",       catLabel: "情緒壓抑" },
+  { id: "mk2", text: "我害怕讓他人看見我的脆弱或不完美。",                  cat: "mask",       catLabel: "情緒壓抑" },
+  { id: "me1", text: "我懷疑自己現在的生活方式，是否真的是我想要的。",      cat: "meaning",    catLabel: "迷失方向" },
 ];
 
 const LIKERT = ["完全沒有", "偶爾如此", "有時如此", "經常如此", "幾乎每天"];
@@ -44,7 +48,7 @@ const CAT_META = {
 const MODULES = [
   {
     step: "STEP 1",
-    title: "褪殼見嶼",
+    title: "初嶼歸名",
     subtitle: "你不是別人給你的那個定義。",
     body: "從小到大，你的身上被貼滿了標籤：「懂事的孩子」、「能幹的員工」、「不夠好的人」……今天，讓我們把它們一張一張撕下來。每一張撕去，你就離真正的自己近一點。沒有標籤的你，才是完整的你。",
     glyph: "✦", accent: "rgba(253,230,138,0.9)", glow: "rgba(253,230,138,0.18)",
@@ -72,7 +76,7 @@ const MODULES = [
   },
   {
     step: "STEP 5",
-    title: "渡光歸岸",
+    title: "清醒溫柔",
     subtitle: "看清了賽局，依然選擇溫柔地活著。",
     body: "這場人生的競賽，規則從來不是為了讓你幸福而設計的。當你看清楚這件事，你不需要憤怒，也不需要逃跑——只需要一個決定：溫柔地對待自己，也溫柔地對待身邊的人。",
     glyph: "❖", accent: "rgba(253,230,138,0.9)", glow: "rgba(253,230,138,0.18)",
@@ -82,8 +86,8 @@ const MODULES = [
 const NAV_ITEMS = [
   { label: "首頁",    href: "#hero" },
   { label: "旅程",    href: "#relay" },
-  { label: "嶼心探照", href: "#awareness" },
-  { label: "嶼光五境", href: "#modules" },
+  { label: "嶼心自見", href: "#awareness" },
+  { label: "歸嶼五心", href: "#modules" },
   { label: "聯絡我們", href: "#contact" },
 ];
 
@@ -287,7 +291,7 @@ function Hero() {
       <div className="absolute left-0 right-0" style={{ top: "50%", height: 1, background: "linear-gradient(to right, transparent, rgba(253,230,138,0.13) 50%, transparent)" }} />
       <motion.div style={{ opacity }} className="flex flex-col items-center">
         <OceanScene y={sceneY} />
-        <motion.div style={{ y: textY }} className="mt-20 text-center px-6">
+        <motion.div style={{ y: textY }} className="mt-6 text-center px-6">
           <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 1.2 }}
             style={{ ...display, color: "rgba(253,230,138,0.7)", letterSpacing: "0.5em", fontSize: 11, marginBottom: 24 }}>
             WEI&nbsp;·&nbsp;LIANG&nbsp;·&nbsp;ISLAND&nbsp;·&nbsp;GLOW
@@ -339,41 +343,48 @@ function AnimatedTimeline() {
     return () => clearInterval(timer);
   }, [inView]);
 
+  const litFraction = litIndex < 0 ? 0 : litIndex / (LIFE_STAGES.length - 1);
+
   return (
-    <div ref={ref} style={{ marginBottom: 64, overflowX: "auto", padding: "36px 28px", borderRadius: 22, ...glassDeep }}>
-      <div className="relative flex items-center justify-between" style={{ minWidth: 640, position: "relative" }}>
-        {/* dim base line */}
-        <div className="absolute" style={{ left: 0, right: 0, top: "14px", height: 1, background: "rgba(255,255,255,0.05)" }} />
+    <div ref={ref} style={{ marginBottom: 64, overflowX: "auto", padding: "44px 28px 36px", borderRadius: 22, ...glassDeep }}>
+      <div className="relative flex items-center justify-between" style={{ minWidth: 640 }}>
+        {/* Background dim line */}
+        <div className="absolute" style={{ left: "5%", right: "5%", top: "50%", transform: "translateY(-50%)", height: 1, background: "rgba(255,255,255,0.06)", borderRadius: 1 }} />
+        {/* Glowing progress line — single element, scaleX */}
+        <motion.div
+          className="absolute"
+          style={{ left: "5%", top: "50%", transform: "translateY(-50%)", height: 1, width: "90%", originX: 0,
+            background: "linear-gradient(to right, rgba(253,230,138,0.9), rgba(253,230,138,0.5))",
+            boxShadow: "0 0 6px rgba(253,230,138,0.6)" }}
+          animate={{ scaleX: litFraction }}
+          initial={{ scaleX: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        />
 
         {LIFE_STAGES.map((s, i) => {
           const isLit = litIndex >= i;
           return (
-            <div key={s.zh} className="relative flex flex-col items-center" style={{ zIndex: 10, flex: 1 }}>
-              {/* connecting line segment to next dot */}
-              {i < LIFE_STAGES.length - 1 && (
-                <motion.div className="absolute"
-                  style={{ top: "14px", left: "50%", height: 1, width: "100%", transformOrigin: "left", originX: 0 }}
-                  initial={{ scaleX: 0, background: "rgba(253,230,138,0.5)" }}
-                  animate={{ scaleX: litIndex > i ? 1 : 0 }}
-                  transition={{ duration: 0.32, ease: "easeOut" }} />
+            <div key={s.zh} className="flex flex-col items-center" style={{ zIndex: 10, flex: 1, position: "relative" }}>
+              {/* Outer ring (only when lit) */}
+              {isLit && (
+                <motion.div className="absolute rounded-full"
+                  initial={{ scale: 2, opacity: 0.6 }}
+                  animate={{ scale: [2, 3, 2], opacity: [0.5, 0, 0.5] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.15 }}
+                  style={{ width: 11, height: 11, border: "1px solid rgba(253,230,138,0.5)", pointerEvents: "none" }} />
               )}
-              {/* dot */}
+              {/* Core dot */}
               <motion.div className="rounded-full"
-                animate={isLit
-                  ? { background: "#FDE68A", boxShadow: "0 0 14px 3px rgba(253,230,138,0.7)", scale: [1,1.4,1] }
-                  : { background: "rgba(100,116,139,0.3)", boxShadow: "none", scale: 1 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
+                animate={{ background: isLit ? "#FDE68A" : "rgba(100,116,139,0.25)",
+                  boxShadow: isLit ? "0 0 12px 2px rgba(253,230,138,0.65)" : "none",
+                  scale: isLit ? [1, 1.35, 1] : 1 }}
+                transition={{ duration: 0.45 }}
                 style={{ width: 11, height: 11 }} />
-              {/* label */}
-              <motion.span
-                animate={{ opacity: isLit ? 1 : 0.25 }}
-                transition={{ duration: 0.4 }}
-                style={{ fontFamily: "'Noto Serif TC','PingFang TC','Microsoft JhengHei',sans-serif", marginTop: 12, fontSize: 13, letterSpacing: "0.08em", color: isLit ? "#E2E8F0" : "#64748B" }}>
+              <motion.span animate={{ opacity: isLit ? 1 : 0.22, y: isLit ? 0 : 2 }} transition={{ duration: 0.4 }}
+                style={{ fontFamily: "'Noto Serif TC','PingFang TC','Microsoft JhengHei',sans-serif", marginTop: 14, fontSize: 13, letterSpacing: "0.08em", color: isLit ? "#E2E8F0" : "#64748B" }}>
                 {s.zh}
               </motion.span>
-              <motion.span
-                animate={{ opacity: isLit ? 0.5 : 0.15 }}
-                transition={{ duration: 0.4 }}
+              <motion.span animate={{ opacity: isLit ? 0.45 : 0.12 }} transition={{ duration: 0.4 }}
                 style={{ marginTop: 3, fontSize: 9, letterSpacing: "0.2em", color: "#64748B" }}>
                 {s.en.toUpperCase()}
               </motion.span>
@@ -396,7 +407,7 @@ function RelaySection() {
           <div style={{ width: 36, height: 1, background: "rgba(253,230,138,0.4)", margin: "0 auto 22px" }} />
           <h2 className="font-light text-slate-100" style={{ ...serif, fontSize: "clamp(2.2rem, 5vw, 3.6rem)" }}>一路走來，辛苦了</h2>
           <p style={{ fontFamily: "'Cormorant Garamond', serif", color: "rgba(253,230,138,0.65)", fontSize: "clamp(0.9rem, 1.3vw, 1.1rem)", marginTop: 10, letterSpacing: "0.08em", fontStyle: "italic" }}>
-            You've come a long way
+            You've carried more than anyone knew
           </p>
         </motion.div>
 
@@ -408,7 +419,7 @@ function RelaySection() {
             className="rounded-full mx-auto" style={{ width: 5, height: 5, background: "#FDE68A", marginBottom: 28, boxShadow: "0 0 12px 2px rgba(253,230,138,0.5)" }} />
           {/* 精簡為兩句 */}
           <p className="text-slate-200" style={{ ...serif, fontSize: "clamp(0.95rem, 1.6vw, 1.15rem)", lineHeight: 2.4, fontWeight: 300 }}>
-            你一個人，帶著重量繼續往前，走到了今天這裡。<br />
+            沒有人知道你一路上扛了多少——但你知道。<br />
             <span style={{ color: "rgba(253,230,138,0.8)" }}>光是你願意停下來——就已經是給自己最好的事。</span>
           </p>
         </motion.div>
@@ -422,11 +433,22 @@ function RelaySection() {
 ───────────────────────────────────────────── */
 
 function AwarenessSection() {
-  const [phase, setPhase] = useState("quiz"); // quiz → result → done
+  const [phase, setPhase] = useState("quiz"); // quiz → result → declined → done
   const [answers, setAnswers] = useState({});
   const [reg, setReg] = useState({ name: "", email: "" });
+  const [emailError, setEmailError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [regCount, setRegCount] = useState(null);
   const resultRef = useRef(null);
+  const MAX_SEATS = 27;
+
+  useEffect(() => {
+    // Fetch live registration count from GAS
+    fetch(SCRIPT_URL + "?type=count")
+      .then(r => r.json())
+      .then(d => setRegCount(d.count ?? null))
+      .catch(() => {});
+  }, []);
 
   const answered   = Object.keys(answers).length;
   const totalScore = Object.values(answers).reduce((a, b) => a + b, 0);
@@ -478,12 +500,15 @@ function AwarenessSection() {
     } catch (_) {}
     setSubmitting(false);
     setPhase("result");
-    setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 200);
   };
 
   // 報名送出（附帶倦怠等級）
   const submitReg = async () => {
-    if (!reg.name || !reg.email) return;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!reg.name) return;
+    if (!emailRegex.test(reg.email)) { setEmailError("請輸入有效的 Email 格式"); return; }
+    setEmailError("");
+    if (regCount !== null && regCount >= MAX_SEATS) return;
     setSubmitting(true);
     const interp = getInterp();
     try {
@@ -491,8 +516,21 @@ function AwarenessSection() {
         body: JSON.stringify({ type: "event_registration", timestamp: new Date().toISOString(), ...reg, burnoutLevel: interp.level, burnoutPct: Math.round((totalScore / maxScore) * 100) }) });
     } catch (_) {}
     setSubmitting(false);
-    setPhase("done");
+    setPhase("registered");
+    if (regCount !== null) setRegCount(c => c + 1);
   };
+
+  // Auto-scroll to result — useEffect watches phase change so DOM is ready
+  useEffect(() => {
+    if (phase === "result") {
+      // Small delay to let AnimatePresence render the new phase
+      const t = setTimeout(() => {
+        const el = document.getElementById("awareness");
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 350);
+      return () => clearTimeout(t);
+    }
+  }, [phase]);
 
   const interp = phase !== "quiz" ? getInterp() : null;
 
@@ -504,10 +542,14 @@ function AwarenessSection() {
           className="text-center" style={{ marginBottom: 60 }}>
           <p style={{ color: "rgba(253,230,138,0.7)", fontSize: 10, letterSpacing: "0.55em", marginBottom: 16 }}>CHAPTER · 02</p>
           <div style={{ width: 36, height: 1, background: "rgba(253,230,138,0.4)", margin: "0 auto 22px" }} />
-          <h2 className="font-light text-slate-100" style={{ ...serif, fontSize: "clamp(2.2rem, 5vw, 3.6rem)", letterSpacing: "0.15em" }}>嶼心探照</h2>
+          <h2 className="font-light text-slate-100" style={{ ...serif, fontSize: "clamp(2.2rem, 5vw, 3.6rem)", letterSpacing: "0.15em" }}>嶼心自見</h2>
           <p style={{ color: "rgba(253,230,138,0.6)", fontSize: 10, letterSpacing: "0.4em", marginTop: 10 }}>ISLAND MIRROR · MBI ADAPTED</p>
           <p className="text-slate-400 mx-auto" style={{ marginTop: 18, maxWidth: 480, lineHeight: 1.9, fontSize: 13 }}>
             十個句子，輕輕靠近自己一點。
+          </p>
+          <p style={{ marginTop: 12, color: "rgba(148,163,184,0.35)", fontSize: 10, letterSpacing: "0.12em" }}>
+            改編自 Maslach Burnout Inventory–General Survey（MBI-GS）<br />
+            Maslach, Jackson &amp; Leiter (1996), CPP Inc.
           </p>
         </motion.div>
 
@@ -547,7 +589,7 @@ function AwarenessSection() {
                     border: "1px solid rgba(253,230,138,0.35)", color: "#FDE68A", fontSize: 12, letterSpacing: "0.18em",
                     cursor: (answered < AWARENESS_ITEMS.length || submitting) ? "not-allowed" : "pointer",
                     opacity: (answered < AWARENESS_ITEMS.length || submitting) ? 0.45 : 1, background: "rgba(253,230,138,0.07)" }}>
-                  {submitting ? "傳送中…" : `查看分析結果 (${answered} / ${AWARENESS_ITEMS.length})`}
+                  {submitting ? "傳送中…" : answered < AWARENESS_ITEMS.length ? `請先完成全部題目（${answered} / ${AWARENESS_ITEMS.length}）` : "✦ 請點我查看分析結果"}
                 </motion.button>
               </div>
 
@@ -614,17 +656,35 @@ function AwarenessSection() {
                 <p style={{ color: "rgba(253,230,138,0.65)", fontSize: 10, letterSpacing: "0.4em", marginBottom: 14 }}>6 / 8 · EVENT INVITATION</p>
                 <h3 style={{ ...serif, color: "#FDE68A", fontSize: "clamp(1.1rem, 1.8vw, 1.4rem)", marginBottom: 10, fontWeight: 300 }}>心靈鬆綁工作坊</h3>
                 <p style={{ ...serif, color: "rgba(203,213,225,0.72)", fontSize: 13, lineHeight: 1.9, marginBottom: 24 }}>
-                  2 小時 · 限額 30 人 · 台南<br />
+                  2 小時 · 台南 · 6/8<br />
                   你的測驗結果將幫助我們為你設計最適合的體驗。
                 </p>
+                {/* Live seat counter */}
+                {regCount !== null && (
+                  <div style={{ marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
+                    <div style={{ flex: 1, height: 4, borderRadius: 4, background: "rgba(255,255,255,0.07)", overflow: "hidden" }}>
+                      <motion.div animate={{ width: `${Math.min(regCount / MAX_SEATS, 1) * 100}%` }} transition={{ duration: 0.8 }}
+                        style={{ height: "100%", background: regCount >= MAX_SEATS ? "#F87171" : "linear-gradient(to right, #34D399, #FDE68A)", borderRadius: 4 }} />
+                    </div>
+                    <span style={{ color: regCount >= MAX_SEATS ? "#F87171" : "rgba(253,230,138,0.8)", fontSize: 11, letterSpacing: "0.1em", flexShrink: 0 }}>
+                      {regCount >= MAX_SEATS ? "名額已滿" : `${regCount} / ${MAX_SEATS} 人`}
+                    </span>
+                  </div>
+                )}
                 <div style={{ display: "flex", gap: 10, marginBottom: 14, flexDirection: "column" }}>
-                  {[{ id: "name", type: "text", placeholder: "你的稱呼" }, { id: "email", type: "email", placeholder: "Email（活動通知用）" }].map(f => (
-                    <input key={f.id} type={f.type} value={reg[f.id]} placeholder={f.placeholder}
-                      onChange={e => setReg(p => ({ ...p, [f.id]: e.target.value }))}
-                      style={{ ...inputStyle }}
-                      onFocus={e => e.target.style.borderColor = "rgba(253,230,138,0.42)"}
-                      onBlur={e  => e.target.style.borderColor = "rgba(148,163,184,0.18)"} />
-                  ))}
+                  <input type="text" value={reg.name} placeholder="你的稱呼"
+                    onChange={e => setReg(p => ({ ...p, name: e.target.value }))}
+                    style={{ ...inputStyle }}
+                    onFocus={e => e.target.style.borderColor = "rgba(253,230,138,0.42)"}
+                    onBlur={e  => e.target.style.borderColor = "rgba(148,163,184,0.18)"} />
+                  <div>
+                    <input type="email" value={reg.email} placeholder="Email（活動通知用）"
+                      onChange={e => { setReg(p => ({ ...p, email: e.target.value })); setEmailError(""); }}
+                      style={{ ...inputStyle, borderColor: emailError ? "#F87171" : "rgba(148,163,184,0.18)" }}
+                      onFocus={e => e.target.style.borderColor = emailError ? "#F87171" : "rgba(253,230,138,0.42)"}
+                      onBlur={e  => e.target.style.borderColor = emailError ? "#F87171" : "rgba(148,163,184,0.18)"} />
+                    {emailError && <p style={{ color: "#F87171", fontSize: 11, marginTop: 5, letterSpacing: "0.05em" }}>{emailError}</p>}
+                  </div>
                 </div>
                 <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
                   <motion.button whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }} onClick={submitReg}
@@ -632,9 +692,9 @@ function AwarenessSection() {
                     style={{ padding: "11px 28px", borderRadius: 999, background: "rgba(253,230,138,0.09)", border: "1px solid rgba(253,230,138,0.42)",
                       color: "#FDE68A", fontSize: 12, letterSpacing: "0.18em", cursor: "pointer", ...glassBase,
                       opacity: (!reg.name || !reg.email || submitting) ? 0.5 : 1 }}>
-                    {submitting ? "傳送中…" : "我要參加 →"}
+                    {submitting ? "傳送中…" : (regCount !== null && regCount >= MAX_SEATS) ? "名額已滿" : "我要參加 →"}
                   </motion.button>
-                  <button onClick={() => setPhase("done")}
+                  <button onClick={() => setPhase("declined")}
                     style={{ padding: "11px 20px", borderRadius: 999, background: "transparent", border: "1px solid rgba(148,163,184,0.18)", color: "rgba(148,163,184,0.55)", fontSize: 11, cursor: "pointer", letterSpacing: "0.1em" }}>
                     先不了
                   </button>
@@ -643,17 +703,45 @@ function AwarenessSection() {
             </motion.div>
           )}
 
-          {/* Phase: done */}
-          {phase === "done" && (
-            <motion.div key="done" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}
-              className="text-center mx-auto" style={{ maxWidth: 500, padding: "48px 40px", borderRadius: 22, ...glassBase }}>
+          {/* Phase: registered */}
+          {phase === "registered" && (
+            <motion.div key="registered" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}
+              className="text-center mx-auto" style={{ maxWidth: 520, padding: "52px 44px", borderRadius: 22, ...glassBase }}>
               <motion.div animate={{ scale: [1, 1.15, 1], opacity: [0.7, 1, 0.7] }} transition={{ duration: 3, repeat: Infinity }}
-                style={{ width: 9, height: 9, borderRadius: "50%", background: "#FDE68A", margin: "0 auto 26px", boxShadow: "0 0 16px rgba(253,230,138,0.6)" }} />
-              <p style={{ ...serif, color: "#FDE68A", fontSize: "clamp(1.1rem, 1.9vw, 1.35rem)", lineHeight: 2 }}>謝謝你如此誠實地面對自己。</p>
-              <p style={{ ...serif, color: "rgba(148,163,184,0.65)", fontSize: 13, lineHeight: 2, marginTop: 12 }}>你的回應已記錄。接下來，讓我們一起走向五個步驟。</p>
-              <a href="#modules" style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 24, padding: "10px 22px", borderRadius: 999, textDecoration: "none",
+                style={{ width: 9, height: 9, borderRadius: "50%", background: "#FDE68A", margin: "0 auto 28px", boxShadow: "0 0 16px rgba(253,230,138,0.6)" }} />
+              <p style={{ ...serif, color: "#FDE68A", fontSize: "clamp(1.1rem, 1.9vw, 1.4rem)", lineHeight: 2 }}>
+                我們留好位置給你了。
+              </p>
+              <p style={{ ...serif, color: "rgba(203,213,225,0.7)", fontSize: 13, lineHeight: 2.1, marginTop: 14 }}>
+                6/8，台南，我們等你。<br />
+                活動前會寄信到你的信箱，請留意。
+              </p>
+              <div style={{ width: 40, height: 1, background: "rgba(253,230,138,0.3)", margin: "24px auto" }} />
+              <a href="#modules" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 22px", borderRadius: 999, textDecoration: "none",
                 color: "#FDE68A", fontSize: 11, letterSpacing: "0.15em", background: "rgba(253,230,138,0.07)", border: "1px solid rgba(253,230,138,0.3)" }}>
-                前往嶼光五境 ↓
+                繼續瀏覽歸嶼五心 ↓
+              </a>
+            </motion.div>
+          )}
+
+          {/* Phase: declined */}
+          {phase === "declined" && (
+            <motion.div key="declined" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}
+              className="text-center mx-auto" style={{ maxWidth: 520, padding: "52px 44px", borderRadius: 22, ...glassBase }}>
+              <motion.div animate={{ scale: [1, 1.12, 1], opacity: [0.5, 0.85, 0.5] }} transition={{ duration: 4, repeat: Infinity }}
+                style={{ width: 8, height: 8, borderRadius: "50%", background: "rgba(167,210,255,0.8)", margin: "0 auto 28px", boxShadow: "0 0 14px rgba(167,210,255,0.5)" }} />
+              <p style={{ ...serif, color: "rgba(226,232,240,0.88)", fontSize: "clamp(1.05rem, 1.8vw, 1.3rem)", lineHeight: 2.2 }}>
+                沒關係，不急。
+              </p>
+              <p style={{ ...serif, color: "rgba(148,163,184,0.65)", fontSize: 14, lineHeight: 2.2, marginTop: 14 }}>
+                無論你什麼時候準備好——<br />
+                這裡的光，都會一直為你留著。<br />
+                我們不會走，你來的時候，我們就在。
+              </p>
+              <div style={{ width: 40, height: 1, background: "rgba(167,210,255,0.2)", margin: "24px auto" }} />
+              <a href="#modules" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 22px", borderRadius: 999, textDecoration: "none",
+                color: "rgba(167,210,255,0.75)", fontSize: 11, letterSpacing: "0.15em", background: "rgba(167,210,255,0.06)", border: "1px solid rgba(167,210,255,0.2)" }}>
+                先去看看歸嶼五心 ↓
               </a>
             </motion.div>
           )}
@@ -664,7 +752,7 @@ function AwarenessSection() {
 }
 
 /* ─────────────────────────────────────────────
-   Chapter 03 — 嶼光五境
+   Chapter 03 — 歸嶼五心
 ───────────────────────────────────────────── */
 
 function ModulesSection() {
@@ -677,9 +765,9 @@ function ModulesSection() {
           className="text-center" style={{ marginBottom: 64 }}>
           <p style={{ color: "rgba(253,230,138,0.7)", fontSize: 10, letterSpacing: "0.55em", marginBottom: 16 }}>CHAPTER · 03</p>
           <div style={{ width: 36, height: 1, background: "rgba(253,230,138,0.4)", margin: "0 auto 22px" }} />
-          <h2 className="font-light text-slate-100" style={{ ...serif, fontSize: "clamp(2.2rem, 5vw, 3.6rem)", letterSpacing: "0.18em" }}>嶼光五境</h2>
+          <h2 className="font-light text-slate-100" style={{ ...serif, fontSize: "clamp(2.2rem, 5vw, 3.6rem)", letterSpacing: "0.18em" }}>歸嶼五心</h2>
           <p style={{ fontFamily: "'Cormorant Garamond', serif", color: "rgba(253,230,138,0.65)", fontSize: "clamp(0.88rem, 1.3vw, 1.05rem)", marginTop: 10, fontStyle: "italic", letterSpacing: "0.08em" }}>
-            Five Realms Back to Yourself
+            Five Ways Back to Yourself
           </p>
         </motion.div>
 
@@ -687,10 +775,7 @@ function ModulesSection() {
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 1.4 }}
           style={{ padding: "32px 44px", borderRadius: 20, ...glassBase, textAlign: "center", maxWidth: 640, margin: "0 auto 64px" }}>
           <p style={{ ...serif, color: "rgba(226,232,240,0.88)", fontSize: "clamp(0.92rem, 1.4vw, 1.15rem)", lineHeight: 2.4, fontWeight: 300 }}>
-            有一種回歸——<span style={{ color: "#FDE68A" }}>比努力更深，比成功更真。</span>
-          </p>
-          <p style={{ ...serif, color: "rgba(148,163,184,0.6)", fontSize: 12, marginTop: 16 }}>
-            現在，讓我們一起走回來——回到那個，真正屬於你的方向。
+            你不是壞掉了——<br /><span style={{ color: "#FDE68A" }}>你只是，累了太久。</span>
           </p>
         </motion.div>
 
@@ -776,7 +861,7 @@ function Closing() {
       <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.5, duration: 1.2 }} style={{ position: "relative" }}>
         <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.2 }}
           style={{ ...serif, color: "rgba(203,213,225,0.6)", fontSize: 13, lineHeight: 2, maxWidth: 540, margin: "0 auto 28px", letterSpacing: "0.04em" }}>
-          走過了褪殼見嶼、裂縫透光、嶼光定向、嶼心識己、渡光歸岸——<br />
+          走過了這五個段落——<br />
           你現在心裡，有什麼留下來了？
         </motion.p>
         <motion.p animate={picked ? { opacity: 0.18 } : { opacity: 1 }} transition={{ duration: 1.2 }}
