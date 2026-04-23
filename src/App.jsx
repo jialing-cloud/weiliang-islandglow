@@ -332,6 +332,7 @@ function AnimatedTimeline() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [litIndex, setLitIndex] = useState(-1);
 
+  // 每個節點間隔 750ms，讓人能感受到每一步
   useEffect(() => {
     if (!inView) return;
     let i = 0;
@@ -339,53 +340,99 @@ function AnimatedTimeline() {
       setLitIndex(i);
       i++;
       if (i >= LIFE_STAGES.length) clearInterval(timer);
-    }, 400);
+    }, 750);
     return () => clearInterval(timer);
   }, [inView]);
 
   const litFraction = litIndex < 0 ? 0 : litIndex / (LIFE_STAGES.length - 1);
 
+  // DOT_TOP: 點的垂直位置（距容器頂）
+  const DOT_TOP = 20;
+
   return (
-    <div ref={ref} style={{ marginBottom: 64, overflowX: "auto", padding: "44px 28px 36px", borderRadius: 22, ...glassDeep }}>
-      <div className="relative flex items-center justify-between" style={{ minWidth: 640 }}>
-        {/* Background dim line */}
-        <div className="absolute" style={{ left: "5%", right: "5%", top: "50%", transform: "translateY(-50%)", height: 1, background: "rgba(255,255,255,0.06)", borderRadius: 1 }} />
-        {/* Glowing progress line — single element, scaleX */}
-        <motion.div
-          className="absolute"
-          style={{ left: "5%", top: "50%", transform: "translateY(-50%)", height: 1, width: "90%", originX: 0,
-            background: "linear-gradient(to right, rgba(253,230,138,0.9), rgba(253,230,138,0.5))",
-            boxShadow: "0 0 6px rgba(253,230,138,0.6)" }}
+    <div ref={ref} style={{ marginBottom: 64, overflowX: "auto", padding: "28px 28px 36px", borderRadius: 22, ...glassDeep }}>
+      {/* 固定高度容器，讓線和點精準對齊 */}
+      <div style={{ position: "relative", minWidth: 640, height: 90 }}>
+
+        {/* 底層暗線 — 與點中心對齊 */}
+        <div style={{
+          position: "absolute", left: "5%", right: "5%",
+          top: DOT_TOP + 5, /* 點半徑 5.5 ≈ 5px */
+          height: 1,
+          background: "rgba(255,255,255,0.07)",
+        }} />
+
+        {/* 發光進度線 */}
+        <motion.div style={{
+          position: "absolute", left: "5%",
+          top: DOT_TOP + 5,
+          height: 1, width: "90%", originX: 0,
+          background: "linear-gradient(to right, rgba(253,230,138,0.95), rgba(253,230,138,0.55))",
+          boxShadow: "0 0 6px rgba(253,230,138,0.55)",
+        }}
           animate={{ scaleX: litFraction }}
           initial={{ scaleX: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         />
 
         {LIFE_STAGES.map((s, i) => {
           const isLit = litIndex >= i;
+          // 水平位置：每個節點均分
+          const leftPct = 5 + (i / (LIFE_STAGES.length - 1)) * 90;
+
           return (
-            <div key={s.zh} className="flex flex-col items-center" style={{ zIndex: 10, flex: 1, position: "relative" }}>
-              {/* Outer ring (only when lit) */}
+            <div key={s.zh} style={{
+              position: "absolute",
+              left: `${leftPct}%`,
+              top: 0,
+              transform: "translateX(-50%)",
+              display: "flex", flexDirection: "column", alignItems: "center",
+              zIndex: 10,
+            }}>
+              {/* 擴散光環 */}
               {isLit && (
-                <motion.div className="absolute rounded-full"
-                  initial={{ scale: 2, opacity: 0.6 }}
-                  animate={{ scale: [2, 3, 2], opacity: [0.5, 0, 0.5] }}
-                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.15 }}
-                  style={{ width: 11, height: 11, border: "1px solid rgba(253,230,138,0.5)", pointerEvents: "none" }} />
+                <motion.div
+                  className="rounded-full"
+                  initial={{ scale: 1, opacity: 0 }}
+                  animate={{ scale: [1, 2.8, 1], opacity: [0.6, 0, 0.6] }}
+                  transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: i * 0.18 }}
+                  style={{
+                    position: "absolute", top: DOT_TOP, width: 11, height: 11,
+                    border: "1px solid rgba(253,230,138,0.45)",
+                    pointerEvents: "none",
+                  }} />
               )}
-              {/* Core dot */}
-              <motion.div className="rounded-full"
-                animate={{ background: isLit ? "#FDE68A" : "rgba(100,116,139,0.25)",
-                  boxShadow: isLit ? "0 0 12px 2px rgba(253,230,138,0.65)" : "none",
-                  scale: isLit ? [1, 1.35, 1] : 1 }}
+
+              {/* 點核心 */}
+              <motion.div
+                className="rounded-full"
+                style={{ marginTop: DOT_TOP, width: 11, height: 11 }}
+                animate={{
+                  background: isLit ? "#FDE68A" : "rgba(100,116,139,0.22)",
+                  boxShadow: isLit ? "0 0 10px 2px rgba(253,230,138,0.6)" : "none",
+                  scale: isLit ? [1, 1.3, 1] : 1,
+                }}
                 transition={{ duration: 0.45 }}
-                style={{ width: 11, height: 11 }} />
-              <motion.span animate={{ opacity: isLit ? 1 : 0.22, y: isLit ? 0 : 2 }} transition={{ duration: 0.4 }}
-                style={{ fontFamily: "'Noto Serif TC','PingFang TC','Microsoft JhengHei',sans-serif", marginTop: 14, fontSize: 13, letterSpacing: "0.08em", color: isLit ? "#E2E8F0" : "#64748B" }}>
+              />
+
+              {/* 中文標籤 — 點正下方，不與線重疊 */}
+              <motion.span
+                animate={{ opacity: isLit ? 1 : 0.22 }}
+                transition={{ duration: 0.4 }}
+                style={{
+                  fontFamily: "'Noto Serif TC','PingFang TC','Microsoft JhengHei',sans-serif",
+                  marginTop: 12, fontSize: 13, letterSpacing: "0.08em",
+                  color: isLit ? "#E2E8F0" : "#64748B",
+                  whiteSpace: "nowrap",
+                }}>
                 {s.zh}
               </motion.span>
-              <motion.span animate={{ opacity: isLit ? 0.45 : 0.12 }} transition={{ duration: 0.4 }}
-                style={{ marginTop: 3, fontSize: 9, letterSpacing: "0.2em", color: "#64748B" }}>
+
+              {/* 英文標籤 */}
+              <motion.span
+                animate={{ opacity: isLit ? 0.45 : 0.12 }}
+                transition={{ duration: 0.4 }}
+                style={{ marginTop: 3, fontSize: 8, letterSpacing: "0.2em", color: "#64748B", whiteSpace: "nowrap" }}>
                 {s.en.toUpperCase()}
               </motion.span>
             </div>
@@ -419,8 +466,7 @@ function RelaySection() {
             className="rounded-full mx-auto" style={{ width: 5, height: 5, background: "#FDE68A", marginBottom: 28, boxShadow: "0 0 12px 2px rgba(253,230,138,0.5)" }} />
           {/* 精簡為兩句 */}
           <p className="text-slate-200" style={{ ...serif, fontSize: "clamp(0.95rem, 1.6vw, 1.15rem)", lineHeight: 2.4, fontWeight: 300 }}>
-            沒有人知道你一路上扛了多少——但你知道。<br />
-            <span style={{ color: "rgba(253,230,138,0.8)" }}>光是你願意停下來——就已經是給自己最好的事。</span>
+            沒有人知道你這一路上扛了多少……
           </p>
         </motion.div>
       </div>
