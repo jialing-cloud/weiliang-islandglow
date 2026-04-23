@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useScroll, useTransform, useSpring, useInView 
    設定
 ───────────────────────────────────────────── */
 
-const SCRIPT_URL = "https://script.google.com/macros/library/d/1_NYWrCzEQ0ODZvpPMxF_7ZWDLUICruTHsoqKhsyq0cZgoPAYnJAl_TWJ/4";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyjya026IRhTggepADLed0J6JBjFpK9YIitzQUWFuxsDNdvEskAN3x2MVuoNLZ6eGpK/exec";
 
 const LIFE_STAGES = [
   { zh: "出生", en: "Birth" },
