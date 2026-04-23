@@ -147,6 +147,124 @@ function Particles({ count = 55 }) {
 }
 
 /* ─────────────────────────────────────────────
+   滑鼠微光游標
+───────────────────────────────────────────── */
+
+function MouseGlow() {
+  const [pos, setPos]       = useState({ x: -200, y: -200 });
+  const [trail, setTrail]   = useState([]);
+  const [visible, setVisible] = useState(false);
+  const trailId = useRef(0);
+
+  useEffect(() => {
+    const onMove = (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      setPos({ x, y });
+      setVisible(true);
+
+      // 每隔約 40ms 留下一個光點尾跡
+      const id = ++trailId.current;
+      setTrail(prev => [
+        ...prev.slice(-18),
+        { id, x, y, born: Date.now() },
+      ]);
+    };
+    const onLeave = () => setVisible(false);
+    const onEnter = () => setVisible(true);
+
+    window.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseleave", onLeave);
+    document.addEventListener("mouseenter", onEnter);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseleave", onLeave);
+      document.removeEventListener("mouseenter", onEnter);
+    };
+  }, []);
+
+  // 自動清除過期尾跡
+  useEffect(() => {
+    const t = setInterval(() => {
+      const now = Date.now();
+      setTrail(prev => prev.filter(p => now - p.born < 700));
+    }, 100);
+    return () => clearInterval(t);
+  }, []);
+
+  if (!visible) return null;
+
+  return (
+    <div className="pointer-events-none fixed inset-0 overflow-hidden" style={{ zIndex: 9999 }} aria-hidden>
+      {/* 主光暈 */}
+      <motion.div
+        style={{
+          position: "fixed",
+          left: pos.x,
+          top: pos.y,
+          x: "-50%",
+          y: "-50%",
+          width: 28,
+          height: 28,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(253,230,138,0.55) 0%, rgba(253,230,138,0.08) 60%, transparent 100%)",
+          mixBlendMode: "screen",
+        }}
+        animate={{ left: pos.x, top: pos.y }}
+        transition={{ type: "spring", stiffness: 800, damping: 40, mass: 0.3 }}
+      />
+      {/* 外圈呼吸環 */}
+      <motion.div
+        style={{
+          position: "fixed",
+          left: pos.x,
+          top: pos.y,
+          x: "-50%",
+          y: "-50%",
+          width: 14,
+          height: 14,
+          borderRadius: "50%",
+          border: "1px solid rgba(253,230,138,0.55)",
+          background: "rgba(253,230,138,0.12)",
+        }}
+        animate={{ left: pos.x, top: pos.y, scale: [1, 1.3, 1] }}
+        transition={{
+          left: { type: "spring", stiffness: 600, damping: 35 },
+          top:  { type: "spring", stiffness: 600, damping: 35 },
+          scale: { duration: 1.8, repeat: Infinity, ease: "easeInOut" },
+        }}
+      />
+      {/* 尾跡光點 */}
+      {trail.map((p, i) => {
+        const age = (Date.now() - p.born) / 700;
+        const opacity = Math.max(0, (1 - age) * 0.55);
+        const size = 3 + (trail.length - i) * 0.15;
+        return (
+          <motion.div
+            key={p.id}
+            style={{
+              position: "fixed",
+              left: p.x,
+              top: p.y,
+              x: "-50%",
+              y: "-50%",
+              width: size,
+              height: size,
+              borderRadius: "50%",
+              background: i % 5 === 0 ? "#BAE6FD" : "#FDE68A",
+              boxShadow: `0 0 6px 1px ${i % 5 === 0 ? "rgba(186,230,253,0.7)" : "rgba(253,230,138,0.7)"}`,
+            }}
+            initial={{ opacity: 0.55, scale: 1 }}
+            animate={{ opacity: 0, scale: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
    導覽列
 ───────────────────────────────────────────── */
 
@@ -998,7 +1116,7 @@ function ContactSection() {
           <motion.div initial={{ opacity: 0, x: -22 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.9 }}
             style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {[
-              { icon: "✉",  label: "Email",       value: "hello@weiliang-islandglow.com", href: "mailto:hello@weiliang-islandglow.com" },
+              { icon: "✉",  label: "Email",       value: "weiliang.islandglow@gmail.com", href: "mailto:weiliang.islandglow@gmail.com" },
               { icon: "📸", label: "Instagram",   value: "@weiliang_islandglow",          href: "https://instagram.com/weiliang_islandglow" },
               { icon: "💬", label: "LINE 官方帳號", value: "@weiliang",                   href: "https://line.me/ti/p/@weiliang" },
               { icon: "📍", label: "活動地點",     value: "701 臺南市東區榮譽街 67 號 ZA301", href: "https://maps.google.com/?q=701臺南市東區榮譽街67號" },
@@ -1053,7 +1171,7 @@ function ContactSection() {
 
         <div className="text-center" style={{ marginTop: 80, paddingTop: 32, borderTop: "1px solid rgba(255,255,255,0.05)" }}>
           <p style={{ color: "rgba(71,85,105,0.52)", fontSize: 9, letterSpacing: "0.4em" }}>
-            © WEI · LIANG · ISLAND · GLOW · 微亮嶼光 · 2025
+            © WEI · LIANG · ISLAND · GLOW · 微亮嶼光 · 2026
           </p>
         </div>
       </div>
@@ -1071,7 +1189,8 @@ export default function App() {
       style={{ background: "linear-gradient(180deg, #020617 0%, #0A1120 30%, #0F172A 60%, #020617 100%)", fontFamily: "'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif", WebkitFontSmoothing: "antialiased" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500&family=Noto+Sans+TC:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; cursor: none; }
+        a, button, [role='button'], select, input, textarea, label { cursor: none; }
         body { margin: 0; background: #020617; }
         *::-webkit-scrollbar { width: 4px; }
         *::-webkit-scrollbar-track { background: transparent; }
@@ -1089,6 +1208,7 @@ export default function App() {
 
       <ScrollProgress />
       <Particles />
+      <MouseGlow />
       <Navbar />
 
       <main className="relative" style={{ zIndex: 20 }}>
