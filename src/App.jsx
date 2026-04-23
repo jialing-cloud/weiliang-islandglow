@@ -19,32 +19,32 @@ const LIFE_STAGES = [
 
 // 改編自 Maslach Burnout Inventory (MBI) — 結構化以利後台維度分析
 const AWARENESS_ITEMS = [
-  { id: "ex1", text: "我常常感到精疲力竭，就算睡了一整夜也沒辦法真正恢復。", cat: "exhaustion", catLabel: "身心耗竭" },
-  { id: "ex2", text: "我覺得自己的能量，正在被工作或生活一點一點地榨乾。",   cat: "exhaustion", catLabel: "身心耗竭" },
-  { id: "ex3", text: "我知道自己需要休息，但就是沒辦法讓自己真正放鬆下來。", cat: "exhaustion", catLabel: "身心耗竭" },
-  { id: "cy1", text: "我開始對以前在乎的事情、或在乎的人，感到麻木或冷漠。", cat: "cynicism",   catLabel: "去人格化" },
-  { id: "cy2", text: "我懷疑自己每天做的事，是否真的有任何意義。",           cat: "cynicism",   catLabel: "去人格化" },
-  { id: "ef1", text: "完成一件事之後，我很難感受到真正的成就感或喜悅。",     cat: "efficacy",   catLabel: "個人效能" },
-  { id: "ef2", text: "我越來越難感受到純粹的快樂，對很多事提不起勁。",       cat: "efficacy",   catLabel: "個人效能" },
+  { id: "ex1", text: "我常常感到精疲力竭，就算睡了一整夜也沒辦法真正恢復。", cat: "exhaustion", catLabel: "心力耗盡" },
+  { id: "ex2", text: "我覺得自己的能量，正在被工作或生活一點一點地榨乾。",   cat: "exhaustion", catLabel: "心力耗盡" },
+  { id: "ex3", text: "我知道自己需要休息，但就是沒辦法讓自己真正放鬆下來。", cat: "exhaustion", catLabel: "心力耗盡" },
+  { id: "cy1", text: "我開始對以前在乎的事情、或在乎的人，感到麻木或冷漠。", cat: "cynicism",   catLabel: "冷感疏離" },
+  { id: "cy2", text: "我懷疑自己每天做的事，是否真的有任何意義。",           cat: "cynicism",   catLabel: "冷感疏離" },
+  { id: "ef1", text: "完成一件事之後，我很難感受到真正的成就感或喜悅。",     cat: "efficacy",   catLabel: "動力流失" },
+  { id: "ef2", text: "我越來越難感受到純粹的快樂，對很多事提不起勁。",       cat: "efficacy",   catLabel: "動力流失" },
   { id: "mk1", text: "我強迫自己維持表面的正常，但內心已經快撐不下去了。",   cat: "mask",       catLabel: "情緒壓抑" },
   { id: "mk2", text: "我害怕讓別人看到我脆弱，或看到「不夠好」的那一面。",   cat: "mask",       catLabel: "情緒壓抑" },
-  { id: "me1", text: "深夜裡，我有時候會問自己：「這真的是我想要的人生嗎？」", cat: "meaning",  catLabel: "存在叩問" },
+  { id: "me1", text: "深夜裡，我有時候會問自己：「這真的是我想要的人生嗎？」", cat: "meaning",  catLabel: "迷失方向" },
 ];
 
 const LIKERT = ["完全沒有", "偶爾如此", "有時如此", "經常如此", "幾乎每天"];
 
 const CAT_META = {
-  exhaustion: { label: "身心耗竭", color: "#F87171",  desc: "持續疲憊感，難以恢復精力" },
-  cynicism:   { label: "去人格化", color: "#FB923C",  desc: "對人與事失去熱情與連結" },
-  efficacy:   { label: "個人效能", color: "#A78BFA",  desc: "對自我價值與成就的懷疑" },
-  mask:       { label: "情緒壓抑", color: "#60A5FA",  desc: "強迫偽裝，不敢示弱" },
-  meaning:    { label: "存在叩問", color: "#34D399",  desc: "對人生方向與意義的深層疑問" },
+  exhaustion: { label: "心力耗盡", color: "#F87171",  desc: "持續疲憊，睡了也補不回來" },
+  cynicism:   { label: "冷感疏離", color: "#FB923C",  desc: "對人與事漸漸失去感受" },
+  efficacy:   { label: "動力流失", color: "#A78BFA",  desc: "努力過後，卻感受不到意義" },
+  mask:       { label: "情緒壓抑", color: "#60A5FA",  desc: "強撐著，不敢讓人看到真實的自己" },
+  meaning:    { label: "迷失方向", color: "#34D399",  desc: "夜深了，開始懷疑自己走的路" },
 };
 
 const MODULES = [
   {
     step: "STEP 1",
-    title: "標籤顯形",
+    title: "褪殼見嶼",
     subtitle: "你不是別人給你的那個定義。",
     body: "從小到大，你的身上被貼滿了標籤：「懂事的孩子」、「能幹的員工」、「不夠好的人」……今天，讓我們把它們一張一張撕下來。每一張撕去，你就離真正的自己近一點。沒有標籤的你，才是完整的你。",
     glyph: "✦", accent: "rgba(253,230,138,0.9)", glow: "rgba(253,230,138,0.18)",
@@ -65,14 +65,14 @@ const MODULES = [
   },
   {
     step: "STEP 4",
-    title: "根錨識己",
+    title: "嶼心識己",
     subtitle: "你的價值，不需要他人的蓋章才算數。",
     body: "當你開始從自己的眼睛裡看見自己的價值，別人的評價就再也無法輕易動搖你。這不是驕傲——而是一種穩定。像一棵根扎得夠深的樹，風可以吹，但你不會被吹走。",
     glyph: "✺", accent: "rgba(196,181,253,0.9)", glow: "rgba(196,181,253,0.12)",
   },
   {
     step: "STEP 5",
-    title: "醒局",
+    title: "渡光歸岸",
     subtitle: "看清了賽局，依然選擇溫柔地活著。",
     body: "這場人生的競賽，規則從來不是為了讓你幸福而設計的。當你看清楚這件事，你不需要憤怒，也不需要逃跑——只需要一個決定：溫柔地對待自己，也溫柔地對待身邊的人。",
     glyph: "❖", accent: "rgba(253,230,138,0.9)", glow: "rgba(253,230,138,0.18)",
@@ -82,8 +82,8 @@ const MODULES = [
 const NAV_ITEMS = [
   { label: "首頁",    href: "#hero" },
   { label: "旅程",    href: "#relay" },
-  { label: "自我覺察", href: "#awareness" },
-  { label: "歸嶼五渡", href: "#modules" },
+  { label: "嶼心探照", href: "#awareness" },
+  { label: "嶼光五境", href: "#modules" },
   { label: "聯絡我們", href: "#contact" },
 ];
 
@@ -91,8 +91,8 @@ const NAV_ITEMS = [
    共用樣式
 ───────────────────────────────────────────── */
 
-const serif   = { fontFamily: "'Noto Serif TC', serif" };
-const display = { fontFamily: "'Cormorant Garamond', 'Noto Serif TC', serif" };
+const serif   = { fontFamily: "'Noto Serif TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif" };
+const display = { fontFamily: "'Cormorant Garamond', Georgia, 'PingFang TC', 'Microsoft JhengHei', sans-serif" };
 
 const glassBase = {
   background: "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)",
@@ -114,7 +114,7 @@ const inputStyle = {
   width: "100%", padding: "11px 14px", borderRadius: 8, boxSizing: "border-box",
   background: "rgba(255,255,255,0.04)", border: "1px solid rgba(148,163,184,0.18)",
   color: "rgba(226,232,240,0.9)", fontSize: 14, outline: "none", transition: "border-color 0.3s",
-  fontFamily: "'Noto Sans TC', sans-serif",
+  fontFamily: "'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif",
 };
 
 /* ─────────────────────────────────────────────
@@ -229,7 +229,7 @@ function OceanScene({ y }) {
     <motion.div style={{ y }} className="relative flex items-center justify-center" aria-hidden>
       <motion.div className="absolute rounded-full" style={{ width: 540, height: 540, background: "radial-gradient(circle, rgba(253,230,138,0.11) 0%, transparent 65%)", filter: "blur(10px)" }}
         animate={{ scale: [1, 1.07, 1], opacity: [0.6, 1, 0.6] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }} />
-      <svg width="500" height="310" viewBox="0 0 520 320" style={{ position: "relative", zIndex: 10 }}>
+      <svg width="500" height="300" viewBox="0 0 520 310" style={{ position: "relative", zIndex: 10 }}>
         <defs>
           <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stopColor="#FDE68A" stopOpacity="1" />
@@ -251,7 +251,7 @@ function OceanScene({ y }) {
         <circle cx="260" cy="90" r="60" fill="url(#moonGlow)" opacity="0.5" />
         <circle cx="260" cy="90" r="29" fill="#FEFCE8"><animate attributeName="opacity" values="0.88;1;0.88" dur="4s" repeatCount="indefinite" /></circle>
         <circle cx="252" cy="84" r="6" fill="rgba(200,190,160,0.12)" />
-        <rect x="0" y="200" width="520" height="120" fill="url(#seaGrad)" />
+        <rect x="0" y="200" width="520" height="110" fill="url(#seaGrad)" />
         <path d="M0,203 Q65,198 130,203 Q195,208 260,203 Q325,198 390,203 Q455,208 520,203" fill="none" stroke="rgba(253,230,138,0.22)" strokeWidth="0.8" />
         <rect x="250" y="200" width="20" height="118" fill="url(#refGrad)" opacity="0.55" />
         {[215,225,235,248,262,275,285].map((x,i)=>(
@@ -260,6 +260,8 @@ function OceanScene({ y }) {
           </line>
         ))}
         <path d="M0,200 Q80,196 180,199 Q220,196 260,198 Q300,200 340,197 Q420,193 520,197 L520,200 L0,200 Z" fill="#020617" opacity="0.9" />
+        {/* subtle shimmer over text */}
+        <rect x="160" y="238" width="200" height="22" fill="url(#refGrad)" opacity="0.3" />
         <rect x="255" y="178" width="10" height="22" rx="2" fill="#020617" />
         <circle cx="260" cy="174" r="5.5" fill="#020617" />
         <path d="M255,185 L247,193 M265,185 L273,193" stroke="#020617" strokeWidth="2.5" strokeLinecap="round" />
@@ -290,19 +292,17 @@ function Hero() {
             style={{ ...display, color: "rgba(253,230,138,0.7)", letterSpacing: "0.5em", fontSize: 11, marginBottom: 24 }}>
             WEI&nbsp;·&nbsp;LIANG&nbsp;·&nbsp;ISLAND&nbsp;·&nbsp;GLOW
           </motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 1.4, ease: "easeOut" }}
-            className="font-light text-slate-100" style={{ ...serif, fontSize: "clamp(2.6rem, 6vw, 4.8rem)", lineHeight: 1.2, letterSpacing: "0.05em" }}>
-            微亮<span style={{ position: "relative", display: "inline-block", marginLeft: "0.15em", color: "#FDE68A" }}>
-              嶼光<span style={{ position: "absolute", bottom: -4, left: 0, right: 0, height: 1, background: "rgba(253,230,138,0.5)" }} />
-            </span>
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 1.4, ease: "easeOut" }}
+            style={{ fontFamily: "'Noto Serif TC','PingFang TC','Microsoft JhengHei',sans-serif", fontWeight: 300, fontSize: "clamp(2.8rem, 6vw, 5rem)", lineHeight: 1.15, letterSpacing: "0.2em", margin: "0 0 0 0", color: "rgba(226,232,240,0.92)" }}>
+            微亮<span style={{ color: "#FDE68A" }}>嶼光</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3, duration: 1.4 }}
-            className="text-slate-300" style={{ ...serif, marginTop: 24, fontSize: "clamp(0.95rem, 1.4vw, 1.1rem)", letterSpacing: "0.1em" }}>
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.4, duration: 1.4 }}
+            style={{ fontFamily: "'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif", color: "rgba(148,163,184,0.75)", marginTop: 20, fontSize: "clamp(0.88rem, 1.3vw, 1rem)", letterSpacing: "0.14em" }}>
             為疲憊的靈魂，留一盞溫柔的光。
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2, duration: 1.6 }}
             style={{ marginTop: 52, display: "inline-block", padding: "22px 38px", borderRadius: 20, ...glassBase, maxWidth: 420 }}>
-            <p style={{ ...display, color: "rgba(253,230,138,0.92)", fontSize: "clamp(0.9rem, 1.5vw, 1.15rem)", fontStyle: "italic", lineHeight: 1.8 }}>
+            <p style={{ ...serif, color: "rgba(253,230,138,0.88)", fontSize: "clamp(0.9rem, 1.5vw, 1.15rem)", lineHeight: 1.9, fontWeight: 300, letterSpacing: "0.06em" }}>
               「真正重要的事物，用肉眼是看不見的。」
             </p>
             <p style={{ marginTop: 8, color: "rgba(148,163,184,0.5)", fontSize: 10, letterSpacing: "0.3em" }}>— 《小王子》</p>
@@ -326,21 +326,60 @@ function Hero() {
 function AnimatedTimeline() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [litIndex, setLitIndex] = useState(-1);
+
+  useEffect(() => {
+    if (!inView) return;
+    let i = 0;
+    const timer = setInterval(() => {
+      setLitIndex(i);
+      i++;
+      if (i >= LIFE_STAGES.length) clearInterval(timer);
+    }, 400);
+    return () => clearInterval(timer);
+  }, [inView]);
+
   return (
-    <div ref={ref} style={{ marginBottom: 64, overflowX: "auto", padding: "32px 28px", borderRadius: 22, ...glassDeep }}>
-      <div className="relative flex items-center justify-between" style={{ minWidth: 640 }}>
-        <div className="absolute" style={{ left: 0, right: 0, top: "50%", height: 1, background: "rgba(255,255,255,0.05)" }} />
-        <motion.div className="absolute" style={{ left: 0, top: "50%", height: 1, background: "linear-gradient(to right, transparent, rgba(253,230,138,0.65) 30%, #FDE68A 50%, rgba(253,230,138,0.65) 70%, transparent)", boxShadow: "0 0 8px rgba(253,230,138,0.4)" }}
-          initial={{ width: "0%" }} animate={inView ? { width: "100%" } : { width: "0%" }} transition={{ duration: 2.4, ease: "easeInOut" }} />
-        {LIFE_STAGES.map((s, i) => (
-          <motion.div key={s.zh} initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.3 + i * 0.22, duration: 0.7 }} className="relative flex flex-col items-center" style={{ zIndex: 10, flex: 1 }}>
-            <motion.div className="rounded-full" style={{ width: 11, height: 11, background: "#FDE68A", boxShadow: "0 0 10px rgba(253,230,138,0.7)" }}
-              animate={inView ? { boxShadow: ["0 0 0 0 rgba(253,230,138,0.6)", "0 0 0 9px rgba(253,230,138,0)"] } : {}} transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }} />
-            <span className="text-slate-200" style={{ ...serif, marginTop: 12, fontSize: 13, letterSpacing: "0.08em" }}>{s.zh}</span>
-            <span className="text-slate-500" style={{ marginTop: 3, fontSize: 9, letterSpacing: "0.2em" }}>{s.en.toUpperCase()}</span>
-          </motion.div>
-        ))}
+    <div ref={ref} style={{ marginBottom: 64, overflowX: "auto", padding: "36px 28px", borderRadius: 22, ...glassDeep }}>
+      <div className="relative flex items-center justify-between" style={{ minWidth: 640, position: "relative" }}>
+        {/* dim base line */}
+        <div className="absolute" style={{ left: 0, right: 0, top: "14px", height: 1, background: "rgba(255,255,255,0.05)" }} />
+
+        {LIFE_STAGES.map((s, i) => {
+          const isLit = litIndex >= i;
+          return (
+            <div key={s.zh} className="relative flex flex-col items-center" style={{ zIndex: 10, flex: 1 }}>
+              {/* connecting line segment to next dot */}
+              {i < LIFE_STAGES.length - 1 && (
+                <motion.div className="absolute"
+                  style={{ top: "14px", left: "50%", height: 1, width: "100%", transformOrigin: "left", originX: 0 }}
+                  initial={{ scaleX: 0, background: "rgba(253,230,138,0.5)" }}
+                  animate={{ scaleX: litIndex > i ? 1 : 0 }}
+                  transition={{ duration: 0.32, ease: "easeOut" }} />
+              )}
+              {/* dot */}
+              <motion.div className="rounded-full"
+                animate={isLit
+                  ? { background: "#FDE68A", boxShadow: "0 0 14px 3px rgba(253,230,138,0.7)", scale: [1,1.4,1] }
+                  : { background: "rgba(100,116,139,0.3)", boxShadow: "none", scale: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                style={{ width: 11, height: 11 }} />
+              {/* label */}
+              <motion.span
+                animate={{ opacity: isLit ? 1 : 0.25 }}
+                transition={{ duration: 0.4 }}
+                style={{ fontFamily: "'Noto Serif TC','PingFang TC','Microsoft JhengHei',sans-serif", marginTop: 12, fontSize: 13, letterSpacing: "0.08em", color: isLit ? "#E2E8F0" : "#64748B" }}>
+                {s.zh}
+              </motion.span>
+              <motion.span
+                animate={{ opacity: isLit ? 0.5 : 0.15 }}
+                transition={{ duration: 0.4 }}
+                style={{ marginTop: 3, fontSize: 9, letterSpacing: "0.2em", color: "#64748B" }}>
+                {s.en.toUpperCase()}
+              </motion.span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -356,7 +395,7 @@ function RelaySection() {
           <p style={{ color: "rgba(253,230,138,0.7)", fontSize: 10, letterSpacing: "0.55em", marginBottom: 16 }}>CHAPTER · 01</p>
           <div style={{ width: 36, height: 1, background: "rgba(253,230,138,0.4)", margin: "0 auto 22px" }} />
           <h2 className="font-light text-slate-100" style={{ ...serif, fontSize: "clamp(2.2rem, 5vw, 3.6rem)" }}>一路走來，辛苦了</h2>
-          <p style={{ ...display, color: "rgba(253,230,138,0.7)", fontStyle: "italic", fontSize: "clamp(0.9rem, 1.3vw, 1.1rem)", marginTop: 10 }}>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", color: "rgba(253,230,138,0.65)", fontSize: "clamp(0.9rem, 1.3vw, 1.1rem)", marginTop: 10, letterSpacing: "0.08em", fontStyle: "italic" }}>
             You've come a long way
           </p>
         </motion.div>
@@ -369,8 +408,8 @@ function RelaySection() {
             className="rounded-full mx-auto" style={{ width: 5, height: 5, background: "#FDE68A", marginBottom: 28, boxShadow: "0 0 12px 2px rgba(253,230,138,0.5)" }} />
           {/* 精簡為兩句 */}
           <p className="text-slate-200" style={{ ...serif, fontSize: "clamp(0.95rem, 1.6vw, 1.15rem)", lineHeight: 2.4, fontWeight: 300 }}>
-            你一個人扛著，繼續往前，走到了今天這裡。<br />
-            <span style={{ color: "rgba(253,230,138,0.8)" }}>接下來，讓我們一起，好好疼惜那個你。</span>
+            你一個人，帶著重量繼續往前，走到了今天這裡。<br />
+            <span style={{ color: "rgba(253,230,138,0.8)" }}>光是你願意停下來——就已經是給自己最好的事。</span>
           </p>
         </motion.div>
       </div>
@@ -387,6 +426,7 @@ function AwarenessSection() {
   const [answers, setAnswers] = useState({});
   const [reg, setReg] = useState({ name: "", email: "" });
   const [submitting, setSubmitting] = useState(false);
+  const resultRef = useRef(null);
 
   const answered   = Object.keys(answers).length;
   const totalScore = Object.values(answers).reduce((a, b) => a + b, 0);
@@ -438,6 +478,7 @@ function AwarenessSection() {
     } catch (_) {}
     setSubmitting(false);
     setPhase("result");
+    setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 200);
   };
 
   // 報名送出（附帶倦怠等級）
@@ -463,10 +504,10 @@ function AwarenessSection() {
           className="text-center" style={{ marginBottom: 60 }}>
           <p style={{ color: "rgba(253,230,138,0.7)", fontSize: 10, letterSpacing: "0.55em", marginBottom: 16 }}>CHAPTER · 02</p>
           <div style={{ width: 36, height: 1, background: "rgba(253,230,138,0.4)", margin: "0 auto 22px" }} />
-          <h2 className="font-light text-slate-100" style={{ ...serif, fontSize: "clamp(2.2rem, 5vw, 3.6rem)", letterSpacing: "0.15em" }}>自我覺察</h2>
-          <p style={{ ...display, color: "rgba(253,230,138,0.7)", fontStyle: "italic", fontSize: "clamp(0.88rem, 1.3vw, 1.05rem)", marginTop: 10 }}>Self-Awareness · MBI Adapted</p>
+          <h2 className="font-light text-slate-100" style={{ ...serif, fontSize: "clamp(2.2rem, 5vw, 3.6rem)", letterSpacing: "0.15em" }}>嶼心探照</h2>
+          <p style={{ color: "rgba(253,230,138,0.6)", fontSize: 10, letterSpacing: "0.4em", marginTop: 10 }}>ISLAND MIRROR · MBI ADAPTED</p>
           <p className="text-slate-400 mx-auto" style={{ marginTop: 18, maxWidth: 480, lineHeight: 1.9, fontSize: 13 }}>
-            透過十個句子，與此刻的自己相遇。
+            十個句子，輕輕靠近自己一點。
           </p>
         </motion.div>
 
@@ -538,7 +579,7 @@ function AwarenessSection() {
 
           {/* Phase: result + invite */}
           {phase === "result" && interp && (
-            <motion.div key="result" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}
+            <motion.div key="result" ref={resultRef} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}
               className="mx-auto" style={{ maxWidth: 660 }}>
               {/* Score card */}
               <div style={{ padding: "40px 44px", borderRadius: 22, ...glassBase, textAlign: "center", marginBottom: 28, border: `1px solid ${interp.color}40` }}>
@@ -612,7 +653,7 @@ function AwarenessSection() {
               <p style={{ ...serif, color: "rgba(148,163,184,0.65)", fontSize: 13, lineHeight: 2, marginTop: 12 }}>你的回應已記錄。接下來，讓我們一起走向五個步驟。</p>
               <a href="#modules" style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 24, padding: "10px 22px", borderRadius: 999, textDecoration: "none",
                 color: "#FDE68A", fontSize: 11, letterSpacing: "0.15em", background: "rgba(253,230,138,0.07)", border: "1px solid rgba(253,230,138,0.3)" }}>
-                前往歸嶼五渡 ↓
+                前往嶼光五境 ↓
               </a>
             </motion.div>
           )}
@@ -623,7 +664,7 @@ function AwarenessSection() {
 }
 
 /* ─────────────────────────────────────────────
-   Chapter 03 — 歸嶼五渡
+   Chapter 03 — 嶼光五境
 ───────────────────────────────────────────── */
 
 function ModulesSection() {
@@ -636,9 +677,9 @@ function ModulesSection() {
           className="text-center" style={{ marginBottom: 64 }}>
           <p style={{ color: "rgba(253,230,138,0.7)", fontSize: 10, letterSpacing: "0.55em", marginBottom: 16 }}>CHAPTER · 03</p>
           <div style={{ width: 36, height: 1, background: "rgba(253,230,138,0.4)", margin: "0 auto 22px" }} />
-          <h2 className="font-light text-slate-100" style={{ ...serif, fontSize: "clamp(2.2rem, 5vw, 3.6rem)", letterSpacing: "0.18em" }}>歸嶼五渡</h2>
-          <p style={{ ...display, color: "rgba(253,230,138,0.7)", fontStyle: "italic", fontSize: "clamp(0.88rem, 1.3vw, 1.05rem)", marginTop: 10 }}>
-            Five Passages Back to Yourself
+          <h2 className="font-light text-slate-100" style={{ ...serif, fontSize: "clamp(2.2rem, 5vw, 3.6rem)", letterSpacing: "0.18em" }}>嶼光五境</h2>
+          <p style={{ fontFamily: "'Cormorant Garamond', serif", color: "rgba(253,230,138,0.65)", fontSize: "clamp(0.88rem, 1.3vw, 1.05rem)", marginTop: 10, fontStyle: "italic", letterSpacing: "0.08em" }}>
+            Five Realms Back to Yourself
           </p>
         </motion.div>
 
@@ -649,7 +690,7 @@ function ModulesSection() {
             有一種回歸——<span style={{ color: "#FDE68A" }}>比努力更深，比成功更真。</span>
           </p>
           <p style={{ ...serif, color: "rgba(148,163,184,0.6)", fontSize: 12, marginTop: 16 }}>
-            不是教你跑得更快，而是邀請你，慢慢回到自己。
+            現在，讓我們一起走回來——回到那個，真正屬於你的方向。
           </p>
         </motion.div>
 
@@ -726,16 +767,21 @@ function Closing() {
         <motion.div animate={{ scale: [1, 1.18, 1], opacity: [0.6, 1, 0.6] }} transition={{ duration: 4, repeat: Infinity }}
           className="rounded-full mx-auto" style={{ width: 7, height: 7, background: "#FDE68A", marginBottom: 40, boxShadow: "0 0 18px 4px rgba(253,230,138,0.5)" }} />
         <div style={{ padding: "36px 40px", borderRadius: 20, ...glassBase }}>
-          <p style={{ ...serif, color: "rgba(226,232,240,0.9)", fontSize: "clamp(1.1rem, 1.8vw, 1.38rem)", lineHeight: 2.4, fontWeight: 300 }}>
-            夜再深、海再寬，<br />總有一盞，為你留著的光。
+          <p style={{ ...serif, color: "rgba(226,232,240,0.9)", fontSize: "clamp(1.05rem, 1.7vw, 1.3rem)", lineHeight: 2.6, fontWeight: 300, letterSpacing: "0.04em" }}>
+            夜再深，海再寬，<br />總有一盞，為你留著的光。
           </p>
         </div>
       </motion.div>
 
       <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.5, duration: 1.2 }} style={{ position: "relative" }}>
+        <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.2 }}
+          style={{ ...serif, color: "rgba(203,213,225,0.6)", fontSize: 13, lineHeight: 2, maxWidth: 540, margin: "0 auto 28px", letterSpacing: "0.04em" }}>
+          走過了褪殼見嶼、裂縫透光、嶼光定向、嶼心識己、渡光歸岸——<br />
+          你現在心裡，有什麼留下來了？
+        </motion.p>
         <motion.p animate={picked ? { opacity: 0.18 } : { opacity: 1 }} transition={{ duration: 1.2 }}
           style={{ ...serif, color: "rgba(253,230,138,0.7)", fontSize: 11, letterSpacing: "0.44em", marginBottom: 40 }}>
-          此刻，把哪一個字，交給夜空？
+          把那個字，交給今晚的夜空。
         </motion.p>
         <div style={{ position: "relative", display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap" }}>
           {choices.map(c => {
@@ -824,7 +870,8 @@ function ContactSection() {
               { icon: "✉",  label: "Email",       value: "hello@weiliang-islandglow.com", href: "mailto:hello@weiliang-islandglow.com" },
               { icon: "📸", label: "Instagram",   value: "@weiliang_islandglow",          href: "https://instagram.com/weiliang_islandglow" },
               { icon: "💬", label: "LINE 官方帳號", value: "@weiliang",                   href: "https://line.me/ti/p/@weiliang" },
-              { icon: "📍", label: "活動地點",     value: "台南市 · 6/8（地點另行通知）",    href: null },
+              { icon: "📍", label: "活動地點",     value: "701 臺南市東區榮譽街 67 號 ZA301", href: "https://maps.google.com/?q=701臺南市東區榮譽街67號" },
+              { icon: "📞", label: "電話",          value: "06 260 6123", href: "tel:0626060123" },
             ].map(item => (
               <div key={item.label} style={{ display: "flex", alignItems: "flex-start", gap: 14, padding: "16px 20px", borderRadius: 12, ...glassDeep }}>
                 <span style={{ fontSize: 17, flexShrink: 0, marginTop: 1 }}>{item.icon}</span>
@@ -890,7 +937,7 @@ function ContactSection() {
 export default function App() {
   return (
     <div className="relative min-h-screen w-full text-slate-100"
-      style={{ background: "linear-gradient(180deg, #020617 0%, #0A1120 30%, #0F172A 60%, #020617 100%)", fontFamily: "'Noto Sans TC', sans-serif", WebkitFontSmoothing: "antialiased" }}>
+      style={{ background: "linear-gradient(180deg, #020617 0%, #0A1120 30%, #0F172A 60%, #020617 100%)", fontFamily: "'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif", WebkitFontSmoothing: "antialiased" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500&family=Noto+Sans+TC:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap');
         html { scroll-behavior: smooth; }
